@@ -1,6 +1,6 @@
 const CartWidget = () => {
     return (
-        <img src={`${process.env.PUBLIC_URL}/assets/images/typoBlanco.png`}  alt="typo"/>
+        <img src="https://www.dropbox.com/s/8pm545ediktmu9v/typoBlanco.png?raw=1"  alt="typo"/>
     );
 };
 

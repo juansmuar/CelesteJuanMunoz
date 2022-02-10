@@ -1,8 +1,0 @@
-.Container{
-    display: flex;
-    max-width: 400px;
-    margin: 20px;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-}
