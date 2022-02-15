@@ -6,7 +6,7 @@ import './ItemList.css';
 const ItemList = () => {
   const [items, setItems] = useState([]);
 
-  //console.log(items);
+  console.log(items.id);
 
   useEffect(() => {
     fetch('data.json')
@@ -19,7 +19,7 @@ const ItemList = () => {
       {items.map((item) => {
         return (
           <div key={item.id}>
-            <Link to={`/detail/${item.id}`} className='Link'>
+            <Link to={`/detail/${item.id}`}>
               <ItemComponent data={item} />
             </Link>
           </div>

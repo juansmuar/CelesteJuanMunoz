@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import './ItemCount.css';
 
@@ -23,6 +24,9 @@ const ItemCount = ({initial, stock}) =>{
             <Button size="small" onClick={handlerCounterDown}>Quitar</Button>
             <p>Cantidad: {counter}</p>
             <Button size="small" onClick={handlerCounterUp}>Añadir</Button>
+            <Link to={'/Cart/'}>
+                <Button size="small" >Comprar</Button>
+            </Link>
         </div>
     );
 };
