@@ -8,7 +8,7 @@ const ItemComponent = ({data}) => {
 					<CardMedia
 						component='img'
 						height='250'
-						image={data.img}
+						image={data.image}
 						alt='thumbnail'
 					/>
                 	<Typography gutterBottom variant="h5" component="div">{data.name}</Typography>

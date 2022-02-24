@@ -3,16 +3,26 @@ import { Link } from 'react-router-dom';
 import ItemComponent from './ItemComponent';
 import './ItemList.css';
 
+import { collection, query, getDocs } from 'firebase/firestore';
+import {db} from '../../firebase/firebaseConfig';
+
 const ItemList = () => {
   const [items, setItems] = useState([]);
 
-  console.log(items.id);
-
-  useEffect(() => {
-    fetch('data.json')
-      .then((response) => response.json())
-      .then((json) => setItems(json));
-  }, []);
+	useEffect(() => {
+		const getItems = async () => {
+			const q = query(collection(db, 'menu'));
+			const docs = [];
+			const querySnapshot = await getDocs(q);
+			console.log('DATA:', querySnapshot);
+			querySnapshot.forEach((doc) => {
+				docs.push({ ...doc.data(), id: doc.id });
+			});
+			console.log(docs);
+			setItems(docs);
+		};
+		getItems();
+	}, []);
 
   return (
     <div className='ItemList-Container'>

@@ -1,34 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import axios from 'axios';
 import ItemComponent from '../../components/ItemListContainer/ItemComponent';
 import ItemCount from '../../components/ItemListContainer/ItemCount';
 
+import { collection, query, where, getDocs, documentId, } from 'firebase/firestore';
+import {db} from '../../firebase/firebaseConfig';
 
 const ItemDetails = () => {
-	const [details, setDetail] = useState({});
-
+	const [details, setDetail] = useState([]);
 
 	let id = useParams();
 
 	let itemID = id.id;
   
 	useEffect(() => {
-		axios.get(`/data${itemID}.json`).then(response => {
-			setDetail(response.data)
-		  })
-		  // if error
-		  .catch(function(error) {
-			console.log(error);
-		  });
+		const getDetail = async () => {
+			const q = query(
+				collection(db, 'menu'),
+				where(documentId(), '==', itemID)
+			);
+			const docs = [];
+			const querySnapshot = await getDocs(q);
+			querySnapshot.forEach((doc) => {
+				docs.push({ ...doc.data(), id: doc.id });
+			});
+			setDetail(docs);
+		};
+		getDetail();
 	}, [itemID]);
-
-	console.log(details);
   
 	return (
 		<div>
-			<ItemComponent data={details} />
-			<ItemCount initial={details.initial} stock={details.stock} />
+			{details.map((detail) => {
+        		return (
+					<div>
+              			<ItemComponent data={detail} />
+						<ItemCount initial={detail.initial} stock={detail.stock} />
+					</div>
+        		);
+      		})}
 		</div>
 	  );
 	};
